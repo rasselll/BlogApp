@@ -44,16 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
-
-
-
-
-
-
         mBlogList = (RecyclerView) findViewById(R.id.blog_list);
         //mBlogList.setHasFixedSize(true);
         mBlogList.setLayoutManager(new LinearLayoutManager(this));
         fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,9 +141,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_add){
-            startActivity(new Intent(MainActivity.this, PostActivity.class));
+            startActivity(new Intent(MainActivity.this, timetable.class));
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
 }
+
 

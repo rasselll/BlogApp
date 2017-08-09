@@ -22,6 +22,11 @@
         <activity android:name=".PostActivity"
             android:label=""
             android:windowSoftInputMode="adjustResize"></activity>
+
+        <activity
+            android:name="com.myproj.blogapp.timetable"
+            android:label="Salah Times"
+            android:windowSoftInputMode="adjustResize"></activity>
     </application>
 
 </manifest>
