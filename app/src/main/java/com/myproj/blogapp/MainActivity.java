@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton fab;
     private DatabaseReference mDatabase;
+    private LinearLayoutManager mLayoutManager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,10 @@ public class MainActivity extends AppCompatActivity {
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
+
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
+
 
 
 
@@ -84,6 +90,13 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        mLayoutManager = new LinearLayoutManager(MainActivity.this);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+
+        // And now set it to the RecyclerView
+        mBlogList.setLayoutManager(mLayoutManager);
         mBlogList.setAdapter(firebaseRecyclerAdapter);
 
     }
@@ -94,7 +107,9 @@ public class MainActivity extends AppCompatActivity {
         View mView;
 
 
+
         public BlogViewHolder(View itemView) {
+
             super(itemView);
             mView = itemView;
         }
@@ -124,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_manu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+
 
 
     @Override
