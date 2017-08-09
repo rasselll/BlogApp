@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">BlogApp</string>
+    <string name="pub_button">Publish</string>
+    <string name="hint_title">Tiltle goes here..</string>
+    <string name="hint_desc">Say something nice...</string>
 </resources>
