@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:paddingBottom="@dimen/post_activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/post_activity_horizontal_margin"
+    tools:context="com.myproj.blogapp.PostActivity"
+    android:background="#F9F9F9">
+
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none"
+        >
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:stretchColumns="1" >
+
+        <TableRow>
+<EditText
+        android:backgroundTint="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/titleField"
+        android:textSize="30sp"
+        android:hint="Tiltle goes here.."
+        android:textColor="#000"
+        android:textCursorDrawable="@null"
+        android:textStyle="bold"
+        android:paddingBottom="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+        </TableRow>
+        <TableRow>
+    <EditText
+        android:backgroundTint="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textCursorDrawable="@null"
+        android:id="@+id/descField"
+        android:textSize="18sp"
+        android:hint="Say something nice..."
+        android:textColor="#000000"
+        android:textStyle="normal"
+        android:paddingBottom="25dp"
+        android:layout_below="@+id/titleField"
+        android:layout_alignParentStart="true" />
+
+        </TableRow>
+
+
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:background="#F9F9F9"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageSelect"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/add_btn"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        android:layout_above="@+id/btn"
+        android:layout_alignParentStart="true" />
+
+
+        </TableLayout>
+    </ScrollView>
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="15"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/linearLayout">
+
+
+
+
+        <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="20dp"
+        android:id="@+id/boldbutton"
+        android:background="@drawable/bold"
+        android:minHeight="0dp" android:minWidth="0dp"
+
+        android:layout_weight="1"
+     />
+
+    <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/iditalic"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+    android:background="@drawable/italic"
+    android:padding="5dp"
+        android:minHeight="0dp" android:minWidth="0dp"
+        android:layout_weight="1"
+    />
+
+
+
+
+        <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imagebutton"
+        android:background="@drawable/photo"
+        android:minHeight="0dp" android:minWidth="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+
+            />
+
+        <Button
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="100dp"
+            android:minHeight="0dp" android:minWidth="0dp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bulletbutton"
+            android:background="@drawable/bulletpoint"
+
+       />
+
+    </LinearLayout>
+</RelativeLayout>

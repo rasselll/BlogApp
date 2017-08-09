@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="7dp"
+    card_view:cardMaxElevation="1dp"
+    card_view:cardElevation="1dp">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:paddingBottom="@dimen/post_activity_horizontal_margin"
+        android:paddingLeft="@dimen/post_activity_horizontal_margin"
+        android:paddingRight="@dimen/post_activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.myproj.blogapp.PostActivity"
+        android:background="#F9F9F9">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/post_title"
+            android:text="Title is here"
+            android:textIsSelectable="false"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:paddingBottom="10dp"
+            android:textColor="#000"
+            android:paddingLeft="15dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/post_image"
+            android:src="@mipmap/add_btn"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/post_desc"
+            android:text="Description is here"
+            android:textSize="16dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/abc_input_method_navigation_guard"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp" />
+    </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+
+
+
+
