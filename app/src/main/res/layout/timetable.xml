@@ -1,27 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/salay_table"
-    android:padding="@dimen/salah_dimen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F9F9F9"
+    android:padding="@dimen/salah_dimen"
     tools:context="com.myproj.blogapp.timetable">
+<TableLayout
+    android:id="@+id/salay_table"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
     <TableRow
-        android:id="@+id/row_1"
+        android:id="@+id/cat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="3dp"
-        android:background="@drawable/my_shape_file">
+        android:layout_marginBottom="1dp"
+        android:background="@drawable/my_shape_file"
+
+        >
+
         <TextView
+            android:id="@+id/salah"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="#fff"
+            android:gravity="center"
+            android:padding="1dp"
+            android:textStyle="bold"
+            android:text=""
+            android:textSize="21dp"
+
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/begin"
+            android:textColor="#000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="1dp"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Begins"
+           />
+
+        <TextView
+            android:id="@+id/jamat"
+            android:textColor="#000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="15dp"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="Row 1"
-            android:textColor="#000" />
+            android:padding="1dp"
+            android:textStyle="bold"
+            android:text="Jamat"
+            />
     </TableRow>
 
     <TableRow
@@ -44,7 +85,8 @@
             android:textSize="21dp"
             android:textColor="#000" />
 
-        <ScrollView>
+
+
         <TextView
             android:id="@+id/fajr_begins"
             android:layout_width="match_parent"
@@ -57,7 +99,7 @@
             android:textSize="20dp"
             android:text="4:30"
             android:background="@drawable/shape_sides"/>
-        </ScrollView>
+
 
         <TextView
             android:id="@+id/fajr_jamat"
@@ -210,11 +252,14 @@
     </TableRow>
 
     <TableRow
+
         android:id="@+id/eisha"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
         android:background="@drawable/my_shape_file">
+
+
 
         <TextView
             android:id="@+id/eisha_time"
@@ -251,10 +296,64 @@
             android:padding="25dp"
             android:text="19:00"
             android:background="@drawable/shape_sides"/>
+
     </TableRow>
+
+ <!--   <TableRow
+
+        android:id="@+id/test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@drawable/my_shape_file">
+
+
+
+        <TextView
+            android:id="@+id/testview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="#fff"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="Eisha"
+            android:textSize="21dp"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/testtext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="25dp"
+            android:textSize="20dp"
+            android:text="18:45 PM"
+            android:background="@drawable/shape_sides"/>
+
+        <TextView
+            android:id="@+id/hj"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="19:00 PM"
+            android:background="@drawable/shape_sides"/>
+
+
+    </TableRow>-->
 
 
     <LinearLayout>
 
     </LinearLayout>
+
+
 </TableLayout>
+
+</ScrollView>

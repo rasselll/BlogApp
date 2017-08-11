@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 
@@ -34,6 +35,7 @@ import java.util.HashMap;
 public class timetable  extends AppCompatActivity {
 
     private TextView text = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,9 +240,11 @@ public class timetable  extends AppCompatActivity {
 
 
 
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
 
         //fajr
         fajrBegin.setText(fjrBegin);
@@ -262,8 +266,42 @@ public class timetable  extends AppCompatActivity {
         eishaBegin.setText(eshaBegin);
         eishaJamat.setText(eshaJamat);
 
+   /*         String currentTimeStr = "19:04 PM";
+
+            Date userDate = new Date();
+            String userDateWithoutTime = new SimpleDateFormat("yyyyMMdd").format(userDate);
+
+            String currentDateStr = userDateWithoutTime + " " + currentTimeStr;
+        Date currentDate = null;
+        try {
+            currentDate = new SimpleDateFormat("yyyyMMdd h:mm a").parse(currentDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+         TextView test = (TextView) findViewById(R.id.testtext);
+      //  eishaJamat.setText(eshaJamat);
+
+        if (userDate.compareTo(currentDate) >= 0) {
+                System.out.println(userDate + "\n is greater than or equal to \n" + currentDate);
+
+            test.setText(userDate + "\n is greater than or equal to \n" + currentDate);
+            } else {
+                System.out.println(userDate + " is less than " + currentDate);
+            test.setText(userDate + "\n is less than \n" + currentDate);
+
+        }*/
+
+
+
+      //  TextView test = (TextView) findViewById(R.id.testtext);
+       // eishaJamat.setText(eshaJamat);
+
+
+
 
     }
+
+
 }
 
 
