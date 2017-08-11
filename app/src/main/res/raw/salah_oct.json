@@ -1,20 +1,6 @@
 {
   "salah_october":[
-    {
-      "day": "",
-      "sehri": "end",
-      "fajrstart": "start",
-      "fajrjamat": "jamat",
-      "sunrise": "sunrise",
-      "zawal": "time",
-      "zuhurstart": "start",
-      "zuhurjamat": "jamat",
-      "asrstart": "start",
-      "asrjamat": "jamat",
-      "magribstart": "start",
-      "ishastart": "start",
-      "ishaend": "jamat"
-    },
+
     {
       "day": "1",
       "sehri": "5:35",
