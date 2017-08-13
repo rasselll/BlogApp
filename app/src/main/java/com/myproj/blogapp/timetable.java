@@ -1,8 +1,10 @@
 package com.myproj.blogapp;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -20,10 +22,9 @@ import java.io.Writer;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+
 
 
 /**
@@ -31,10 +32,9 @@ import java.util.HashMap;
  */
 
 
+public class timetable extends AppCompatActivity {
 
-public class timetable  extends AppCompatActivity {
-
-    private TextView text = null;
+    private TextView text;
 
 
     @Override
@@ -48,40 +48,40 @@ public class timetable  extends AppCompatActivity {
         InputStream is = null;
 
 
-        if(thisMonth == Calendar.JANUARY){
+        if (thisMonth == Calendar.JANUARY) {
             is = getResources().openRawResource(R.raw.salah_jan);
 
-        }else if(thisMonth == Calendar.FEBRUARY) {
+        } else if (thisMonth == Calendar.FEBRUARY) {
             is = getResources().openRawResource(R.raw.salah_feb);
 
-        }else if(thisMonth == Calendar.MARCH) {
+        } else if (thisMonth == Calendar.MARCH) {
             is = getResources().openRawResource(R.raw.salah_mrch);
 
-        }else if(thisMonth == Calendar.APRIL) {
+        } else if (thisMonth == Calendar.APRIL) {
             is = getResources().openRawResource(R.raw.salah_apr);
 
-        }else if(thisMonth == Calendar.MAY) {
+        } else if (thisMonth == Calendar.MAY) {
             is = getResources().openRawResource(R.raw.salah_may);
 
-        }else if(thisMonth == Calendar.JUNE) {
+        } else if (thisMonth == Calendar.JUNE) {
             is = getResources().openRawResource(R.raw.salah_jun);
 
-        }else if(thisMonth == Calendar.JULY) {
+        } else if (thisMonth == Calendar.JULY) {
             is = getResources().openRawResource(R.raw.salah_jul);
 
-        }else if(thisMonth == Calendar.AUGUST) {
+        } else if (thisMonth == Calendar.AUGUST) {
             is = getResources().openRawResource(R.raw.salah_aug);
 
-        }else if(thisMonth == Calendar.SEPTEMBER) {
+        } else if (thisMonth == Calendar.SEPTEMBER) {
             is = getResources().openRawResource(R.raw.salah_sep);
 
-        }else if(thisMonth == Calendar.OCTOBER) {
+        } else if (thisMonth == Calendar.OCTOBER) {
             is = getResources().openRawResource(R.raw.salah_oct);
 
-        }else if(thisMonth == Calendar.NOVEMBER) {
+        } else if (thisMonth == Calendar.NOVEMBER) {
             is = getResources().openRawResource(R.raw.salah_nov);
 
-        }else if(thisMonth == Calendar.DECEMBER) {
+        } else if (thisMonth == Calendar.DECEMBER) {
             is = getResources().openRawResource(R.raw.salah_dec);
 
         }
@@ -133,7 +133,6 @@ public class timetable  extends AppCompatActivity {
         String eshaJamat = "";
 
 
-
         //fajr
         TextView fajrBegin = (TextView) findViewById(R.id.fajr_begins);
         TextView fajrJamat = (TextView) findViewById(R.id.fajr_jamat);
@@ -160,58 +159,56 @@ public class timetable  extends AppCompatActivity {
             JSONObject array = new JSONObject(jsonString);
             JSONArray jNode = null;
 
-            if(thisMonth == Calendar.AUGUST) {
-                 jNode = array.optJSONArray("salah_august");
+            if (thisMonth == Calendar.AUGUST) {
+                jNode = array.optJSONArray("salah_august");
 
-            }else if(thisMonth == Calendar.JANUARY){
+            } else if (thisMonth == Calendar.JANUARY) {
 
             }
 
 
-            if(thisMonth == Calendar.JANUARY){
+            if (thisMonth == Calendar.JANUARY) {
                 jNode = array.optJSONArray("salah_january");
 
-            }else if(thisMonth == Calendar.FEBRUARY) {
+            } else if (thisMonth == Calendar.FEBRUARY) {
                 jNode = array.optJSONArray("salah_febuary");
 
-            }else if(thisMonth == Calendar.MARCH) {
+            } else if (thisMonth == Calendar.MARCH) {
                 jNode = array.optJSONArray("salah_march");
 
-            }else if(thisMonth == Calendar.APRIL) {
+            } else if (thisMonth == Calendar.APRIL) {
                 jNode = array.optJSONArray("salah_april");
 
-            }else if(thisMonth == Calendar.MAY) {
+            } else if (thisMonth == Calendar.MAY) {
                 jNode = array.optJSONArray("salah_may");
 
-            }else if(thisMonth == Calendar.JUNE) {
+            } else if (thisMonth == Calendar.JUNE) {
                 jNode = array.optJSONArray("salah_june");
 
-            }else if(thisMonth == Calendar.JULY) {
+            } else if (thisMonth == Calendar.JULY) {
                 jNode = array.optJSONArray("salah_july");
 
-            }else if(thisMonth == Calendar.AUGUST) {
-                is = getResources().openRawResource(R.raw.salah_aug);
+            } else if (thisMonth == Calendar.AUGUST) {
+                jNode = array.optJSONArray("salah_august");
 
-            }else if(thisMonth == Calendar.SEPTEMBER) {
+            } else if (thisMonth == Calendar.SEPTEMBER) {
                 jNode = array.optJSONArray("salah_september");
 
-            }else if(thisMonth == Calendar.OCTOBER) {
+            } else if (thisMonth == Calendar.OCTOBER) {
                 jNode = array.optJSONArray("salah_october");
 
-            }else if(thisMonth == Calendar.NOVEMBER) {
+            } else if (thisMonth == Calendar.NOVEMBER) {
                 jNode = array.optJSONArray("salah_november");
 
-            }else if(thisMonth == Calendar.DECEMBER) {
+            } else if (thisMonth == Calendar.DECEMBER) {
                 jNode = array.optJSONArray("salah_december");
 
             }
 
 
-
-
             int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
-            int today = dayOfMonth-1;
-            for(int i = today; i < dayOfMonth; i++){
+            int today = dayOfMonth - 1;
+            for (int i = today; i < dayOfMonth; i++) {
 
 
                 JSONObject childObject = jNode.getJSONObject(today);
@@ -236,9 +233,6 @@ public class timetable  extends AppCompatActivity {
                 eshaBegin += childObject.optString("ishastart");
                 eshaJamat += childObject.optString("ishaend");
             }
-
-
-
 
 
         } catch (JSONException e) {
@@ -266,37 +260,117 @@ public class timetable  extends AppCompatActivity {
         eishaBegin.setText(eshaBegin);
         eishaJamat.setText(eshaJamat);
 
-   /*         String currentTimeStr = "19:04 PM";
 
-            Date userDate = new Date();
-            String userDateWithoutTime = new SimpleDateFormat("yyyyMMdd").format(userDate);
+        Date userDate = new Date();
 
-            String currentDateStr = userDateWithoutTime + " " + currentTimeStr;
-        Date currentDate = null;
+
+        //Current date variable for each salah
+        Date currentDateFajr = null;
+        Date currentDateEisha = null;
+        Date currentDateZuhur = null;
+        Date currentDateMagrib = null;
+        Date currentDateAsr = null;
+
+
+        TableRow tableFajr = (TableRow) findViewById(R.id.fajr);
+        TableRow tableZuhur = (TableRow) findViewById(R.id.zuhur);
+        TableRow tableAsr = (TableRow) findViewById(R.id.asr);
+        TableRow tableMarib = (TableRow) findViewById(R.id.magrib);
+        TableRow tableEisha = (TableRow) findViewById(R.id.eisha);
+
+
         try {
-            currentDate = new SimpleDateFormat("yyyyMMdd h:mm a").parse(currentDateStr);
+            currentDateFajr = new SimpleDateFormat("HH:mm").parse(fjrBegin);
+            currentDateZuhur = new SimpleDateFormat("HH:mm").parse(zhrBegin);
+            currentDateAsr = new SimpleDateFormat("HH:mm").parse(aBegin);
+            currentDateMagrib = new SimpleDateFormat("HH:mm").parse(mgrbBegin);
+            currentDateEisha = new SimpleDateFormat("HH:mm").parse(eshaBegin);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
-         TextView test = (TextView) findViewById(R.id.testtext);
-      //  eishaJamat.setText(eshaJamat);
-
-        if (userDate.compareTo(currentDate) >= 0) {
-                System.out.println(userDate + "\n is greater than or equal to \n" + currentDate);
-
-            test.setText(userDate + "\n is greater than or equal to \n" + currentDate);
-            } else {
-                System.out.println(userDate + " is less than " + currentDate);
-            test.setText(userDate + "\n is less than \n" + currentDate);
-
-        }*/
 
 
+        //Change in salah rows
+        final String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        Date convertedDate = new Date();
+        try {
+            convertedDate = dateFormat.parse(timeStamp);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-      //  TextView test = (TextView) findViewById(R.id.testtext);
-       // eishaJamat.setText(eshaJamat);
+
+        //fajr
+        if (convertedDate.getTime() <= currentDateZuhur.getTime() && convertedDate.getTime() >= currentDateFajr.getTime()) {
+            //set zuhur green
+            tableFajr.setBackgroundResource(R.drawable.right);
+
+            //set all salah deafualt
+            tableMarib.setBackgroundResource(R.drawable.my_shape_file);
+            tableZuhur.setBackgroundResource(R.drawable.my_shape_file);
+            tableAsr.setBackgroundResource(R.drawable.my_shape_file);
+            tableEisha.setBackgroundResource(R.drawable.my_shape_file);
+
+        }
 
 
+        //zuhur
+        if (convertedDate.getTime() <= currentDateAsr.getTime() && convertedDate.getTime() >= currentDateZuhur.getTime()) {
+            //set zuhur green
+            tableZuhur.setBackgroundResource(R.drawable.right);
+
+            //set all salah deafualt
+            tableMarib.setBackgroundResource(R.drawable.my_shape_file);
+            tableAsr.setBackgroundResource(R.drawable.my_shape_file);
+            tableFajr.setBackgroundResource(R.drawable.my_shape_file);
+            tableEisha.setBackgroundResource(R.drawable.my_shape_file);
+
+        }
+
+
+        //asr
+        if (convertedDate.getTime() <= currentDateMagrib.getTime() && convertedDate.getTime() >= currentDateAsr.getTime()) {
+            //set asr green
+            tableAsr.setBackgroundResource(R.drawable.right);
+
+            //set all salah deafualt
+            tableMarib.setBackgroundResource(R.drawable.my_shape_file);
+            tableZuhur.setBackgroundResource(R.drawable.my_shape_file);
+            tableFajr.setBackgroundResource(R.drawable.my_shape_file);
+            tableEisha.setBackgroundResource(R.drawable.my_shape_file);
+
+        }
+
+        //magrib
+        if (convertedDate.getTime() <= currentDateEisha.getTime() && convertedDate.getTime() >= currentDateMagrib.getTime())
+        //if (currentDateMagrib.before(userDate) &&  userDate.after(currentDateAsr))
+        {
+            //set magrib green
+            tableMarib.setBackgroundResource(R.drawable.right);
+
+            //set all salah deafualt
+            tableZuhur.setBackgroundResource(R.drawable.my_shape_file);
+            tableAsr.setBackgroundResource(R.drawable.my_shape_file);
+            tableFajr.setBackgroundResource(R.drawable.my_shape_file);
+            tableEisha.setBackgroundResource(R.drawable.my_shape_file);
+
+        }
+
+        //eisha
+        if (convertedDate.getTime() >= currentDateEisha.getTime() || convertedDate.getTime() <= currentDateFajr.getTime()) {
+            //set eisha green
+            tableEisha.setBackgroundResource(R.drawable.right);
+
+            //set all salah deafualt
+            tableMarib.setBackgroundResource(R.drawable.my_shape_file);
+            tableZuhur.setBackgroundResource(R.drawable.my_shape_file);
+            tableFajr.setBackgroundResource(R.drawable.my_shape_file);
+            tableAsr.setBackgroundResource(R.drawable.my_shape_file);
+
+        }
 
 
     }
