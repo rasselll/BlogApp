@@ -18,6 +18,8 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="com.myproj.blogapp.PostActivity"
         android:background="#FFFFFF">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,6 +58,7 @@
             android:paddingLeft="15dp" />
     </LinearLayout>
     </RelativeLayout>
+
 </android.support.v7.widget.CardView>
 
 

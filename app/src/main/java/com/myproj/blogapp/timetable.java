@@ -10,6 +10,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -85,6 +86,9 @@ public class timetable extends AppCompatActivity {
             is = getResources().openRawResource(R.raw.salah_dec);
 
         }
+
+        TextView dateSalah = (TextView) findViewById(R.id.salah);
+        dateSalah.setText("27 Aug");
 
 
         Writer writer = new StringWriter();
@@ -298,7 +302,7 @@ public class timetable extends AppCompatActivity {
         try {
             convertedDate = dateFormat.parse(timeStamp);
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
+            //TODO Auto-generated catch block
             e.printStackTrace();
         }
 

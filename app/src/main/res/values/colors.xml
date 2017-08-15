@@ -3,4 +3,7 @@
     <color name="colorPrimary">#ffffff</color>
     <color name="pubcolor">#126428</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="blackt">#000</color>
+    <color name="background">#EEEEEE</color>
+    <color name="colorBottomNavigationButton">#7F7F7F</color>
 </resources>

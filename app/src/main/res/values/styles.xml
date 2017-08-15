@@ -24,4 +24,14 @@
 
     </style>
 
+
+    <!-- Style for Bottom Navigation Bar buttons -->
+    <style name="BottomNavigationBarButton" parent="Base.Widget.AppCompat.Button">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorBottomNavigationButton</item>
+    </style>
+
 </resources>
