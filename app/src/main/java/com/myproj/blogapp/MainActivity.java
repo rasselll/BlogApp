@@ -3,6 +3,7 @@ package com.myproj.blogapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,18 +19,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mBlogList;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
+
 
     FloatingActionButton fab;
     private DatabaseReference mDatabase;
+    private DatabaseReference mDatabaseUsers;
+
     private LinearLayoutManager mLayoutManager;
 
 
@@ -38,12 +51,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener(){
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser() == null){
+
+                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(loginIntent);
+                }
+            }
+        };
+
+
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
+        mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDatabaseUsers.keepSynced(true);
+
         mBlogList = (RecyclerView) findViewById(R.id.blog_list);
         //mBlogList.setHasFixedSize(true);
         mBlogList.setLayoutManager(new LinearLayoutManager(this));
@@ -63,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        checkUserExist();
+
+        mAuth.addAuthStateListener(mAuthListener);
         FirebaseRecyclerAdapter<Blog, BlogViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Blog, BlogViewHolder>(
 
                 Blog.class,
@@ -70,10 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 BlogViewHolder.class,
                 mDatabase
 
-
-
         ) {
-
 
             @Override
             protected void populateViewHolder(BlogViewHolder viewHolder, Blog model, int position) {
@@ -85,15 +115,44 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        //Decending order firebase
         mLayoutManager = new LinearLayoutManager(MainActivity.this);
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
-
-
         // And now set it to the RecyclerView
         mBlogList.setLayoutManager(mLayoutManager);
         mBlogList.setAdapter(firebaseRecyclerAdapter);
 
+    }
+
+    private void checkUserExist() {
+        if(mAuth.getCurrentUser() != null) {
+
+
+            final String user_id = mAuth.getCurrentUser().getUid();
+
+
+            mDatabaseUsers.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+
+                    if (dataSnapshot.hasChild(user_id)) {
+                        Intent setupIntent = new Intent(MainActivity.this, SetupActivity.class);
+                        setupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(setupIntent);
+                    }
+                }
+
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+
+            });
+
+
+        }
     }
 
 
@@ -143,10 +202,17 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.action_add){
             startActivity(new Intent(MainActivity.this, timetable.class));
         }
+        if(item.getItemId() == R.id.action_logout){
+            logout();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
+    private void logout() {
 
+        mAuth.signOut();
+    }
 
 
 }

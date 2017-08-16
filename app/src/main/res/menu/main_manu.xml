@@ -19,6 +19,11 @@
         android:title="Settings"
         app:showAsAction="never" ></item>
 
+    <item
+        android:id="@+id/action_logout"
+        android:title="Logout"
+        app:showAsAction="never" ></item>
+
 
 
 
