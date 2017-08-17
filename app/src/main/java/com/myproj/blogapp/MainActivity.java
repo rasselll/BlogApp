@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         };
 
 
+        if (mAuth.getCurrentUser() == null) {
+            checkUserExist();
+        }
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
@@ -94,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            checkUserExist();
 
     }
 

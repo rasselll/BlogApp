@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,9 +19,16 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -43,13 +51,23 @@ private static  final int GALLERY_REQUEST = 1;
 
     private ProgressDialog mProgress;
 
+    private FirebaseAuth mAuth;
+
+    private FirebaseUser mCurrentUser;
+
+    private  DatabaseReference mDatabaseUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+        mAuth = FirebaseAuth.getInstance();
+
+        mCurrentUser = mAuth.getCurrentUser();
         mStorage = FirebaseStorage.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
+        mDatabaseUser = FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrentUser.getUid());
 
         //add back button
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -62,6 +80,8 @@ private static  final int GALLERY_REQUEST = 1;
 
 
         mProgress = new ProgressDialog(this);
+
+
 
         mSelectImage = (ImageButton) findViewById(R.id.imageSelect);
 
@@ -82,7 +102,7 @@ private static  final int GALLERY_REQUEST = 1;
 
 
     private void startPosting() {
-mProgress.setMessage("prog");
+mProgress.setMessage("Posting...");
 
         mProgress.getProgress();
        final  String title_val = mPostTitle.getText().toString().trim();
@@ -93,19 +113,48 @@ mProgress.setMessage("prog");
             StorageReference filepath = mStorage.child("Blog_Image").child(mImageURi.getLastPathSegment());
 
             filepath.putFile(mImageURi).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Uri downlaodUrl = taskSnapshot.getDownloadUrl();
 
-                    DatabaseReference newPost = mDatabase.push();
+                    final   Uri downlaodUrl = taskSnapshot.getDownloadUrl();
 
-                    newPost.child("title").setValue(title_val);
-                    newPost.child("desc").setValue(desc_val);
-                    newPost.child("image").setValue(downlaodUrl.toString());
+                    final  DatabaseReference newPost = mDatabase.push();
+
+
+                    mDatabaseUser.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            newPost.child("title").setValue(title_val);
+                            newPost.child("desc").setValue(desc_val);
+                            newPost.child("image").setValue(downlaodUrl.toString());
+                            newPost.child("uid").setValue(mCurrentUser.getUid());
+                            newPost.child("usernsme").setValue(dataSnapshot.child("name").getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        finish();
+                                        startActivity(new Intent(PostActivity.this, MainActivity.class));
+                                    }else{
+                                        //TODO error message
+                                    }
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+
+
+                        }
+                    });
+
 
                     mProgress.dismiss();
-                    finish();
-                    startActivity(new Intent(PostActivity.this, MainActivity.class));
+
 
                 }
             });
