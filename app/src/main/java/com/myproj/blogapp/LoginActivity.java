@@ -58,11 +58,15 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
+
+
 
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -185,7 +189,9 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         // ...
-                        mProgress.show();
+                        mProgress.dismiss();
+
+                        checkUserExist();
                     }
                 });
     }
@@ -221,34 +227,35 @@ public class LoginActivity extends AppCompatActivity {
 
     private void checkUserExist() {
 
-       final String user_id = mAuth.getCurrentUser().getUid();
+        if(mAuth.getCurrentUser() != null){
+
+            final String user_id = mAuth.getCurrentUser().getUid();
 
 
-        mDatabaseUsers.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            mDatabaseUsers.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if(dataSnapshot.hasChild(user_id)){
-                    Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(mainIntent);
-                }else{
-                    Intent setupIntent = new Intent(LoginActivity.this, SetupActivity.class);
-                    setupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(setupIntent);
+                    if (dataSnapshot.hasChild(user_id)) {
+                        Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                        mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(mainIntent);
+                    } else {
+                        Intent setupIntent = new Intent(LoginActivity.this, SetupActivity.class);
+                        setupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(setupIntent);
+                    }
                 }
-            }
 
 
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+                }
 
 
-        });
-
+            });
+        }
 
 
 

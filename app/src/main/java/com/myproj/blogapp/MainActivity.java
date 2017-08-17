@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
     private void checkUserExist() {
 
 
-        if (mAuth.getCurrentUser() == null) {
+        if (mAuth.getCurrentUser() != null) {
             final String user_id = mAuth.getCurrentUser().getUid();
 
 
