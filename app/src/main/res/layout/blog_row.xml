@@ -56,6 +56,37 @@
             android:textColor="@color/abc_input_method_navigation_guard"
             android:paddingBottom="10dp"
             android:paddingLeft="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/post_username"
+            android:padding="5dp"
+            android:textStyle="normal"
+            android:textSize="12dp"
+            android:text="Username"
+            android:textColor="#000"
+            android:paddingLeft="15dp"
+            android:layout_marginLeft="15dp" />
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="30dp">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/like_btn"
+                android:src="@mipmap/thumbblack"
+                android:background="#00ffffff"
+                android:layout_marginLeft="15dp"
+                />
+        </LinearLayout>
     </LinearLayout>
     </RelativeLayout>
 

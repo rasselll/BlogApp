@@ -4,12 +4,13 @@ package com.myproj.blogapp;
  * Created by user on 8/7/2017.
  */
 public class Blog {
-    private String title, desc, image;
+    private String title, desc, image, username;
 
-    public Blog(String title, String desc, String image) {
+    public Blog(String title, String desc, String image, String username) {
         this.title = title;
         this.desc = desc;
         this.image = image;
+        this.username = username;
     }
 
     public Blog(){
@@ -38,5 +39,13 @@ public class Blog {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

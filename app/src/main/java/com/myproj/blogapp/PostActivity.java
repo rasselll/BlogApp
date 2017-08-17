@@ -108,6 +108,7 @@ mProgress.setMessage("Posting...");
        final  String title_val = mPostTitle.getText().toString().trim();
        final  String desc_val = mPostDesc.getText().toString().trim();
 
+
         if(!TextUtils.isEmpty(title_val) && !TextUtils.isEmpty(desc_val) && mImageURi != null){
             mProgress.show();
             StorageReference filepath = mStorage.child("Blog_Image").child(mImageURi.getLastPathSegment());
@@ -131,7 +132,7 @@ mProgress.setMessage("Posting...");
                             newPost.child("desc").setValue(desc_val);
                             newPost.child("image").setValue(downlaodUrl.toString());
                             newPost.child("uid").setValue(mCurrentUser.getUid());
-                            newPost.child("usernsme").setValue(dataSnapshot.child("name").getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            newPost.child("username").setValue(dataSnapshot.child("name").getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){

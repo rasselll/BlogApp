@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.view.WindowManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    private boolean mProcessLike = false;
+
 
 
     FloatingActionButton fab;
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseUsers;
 
     private LinearLayoutManager mLayoutManager;
+
+    private  DatabaseReference mDatabaseLike;
 
 
 
@@ -78,7 +84,10 @@ public class MainActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
         mDatabaseUsers.keepSynced(true);
+        mDatabaseLike.keepSynced(true);
+        mDatabase.keepSynced(true);
 
 
         mBlogList = (RecyclerView) findViewById(R.id.blog_list);
@@ -118,14 +127,71 @@ public class MainActivity extends AppCompatActivity {
         ) {
 
             @Override
-            protected void populateViewHolder(BlogViewHolder viewHolder, Blog model, int position) {
+            protected void populateViewHolder(BlogViewHolder viewHolder, final Blog model, int position) {
+
+                final String post_key = getRef(position).getKey();
 
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDesc());
                 viewHolder.setImage(getApplicationContext(), model.getImage());
+                viewHolder.setUsername(model.getUsername());
+                viewHolder.setLikeBtn(post_key);
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //Toast.makeText(MainActivity.this, post_key, Toast.LENGTH_LONG).show();
 
-            }
+                        Intent singleBlogintent = new Intent (MainActivity.this, BlogSingleActivity.class);
+                        singleBlogintent.putExtra("blog_id", post_key);
+                        startActivity(singleBlogintent);
+                    }
+                });
+
+
+                viewHolder.mLikeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        mProcessLike = true;
+
+
+
+                            mDatabaseLike.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+
+                                    if (mProcessLike) {
+                                        if (dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())) {
+
+                                            mDatabaseLike.child(post_key).child(mAuth.getCurrentUser().getUid()).removeValue();
+
+                                            mProcessLike = false;
+                                        } else {
+                                            mDatabaseLike.child(post_key).child(mAuth.getCurrentUser().getUid()).setValue("Random Value");
+
+                                            mProcessLike = false;
+                                        }
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+
+                });
+
+        }
+
+
         };
+
+
+
+
 
         //Decending order firebase
         mLayoutManager = new LinearLayoutManager(MainActivity.this);
@@ -182,12 +248,47 @@ public class MainActivity extends AppCompatActivity {
 
         View mView;
 
+        ImageButton mLikeBtn;
 
+        DatabaseReference mDatabaseLike;
+        FirebaseAuth mAuth;
 
         public BlogViewHolder(View itemView) {
 
             super(itemView);
             mView = itemView;
+
+
+
+            mLikeBtn = (ImageButton) mView.findViewById(R.id.like_btn);
+            mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
+            mAuth = FirebaseAuth.getInstance();
+
+            mDatabaseLike.keepSynced(true);
+
+
+        }
+
+        public void setLikeBtn(final String post_key){
+
+            mDatabaseLike.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+
+                    if(dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())){
+                        mLikeBtn.setImageResource(R.mipmap.thumbgreen);
+                    }else{
+
+                        mLikeBtn.setImageResource(R.mipmap.thumbblack);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
 
        public void setTitle(String title){
@@ -206,6 +307,11 @@ public class MainActivity extends AppCompatActivity {
             ImageView post_image = (ImageView) mView.findViewById(R.id.post_image);
 
             Picasso.with(ctx).load(image).into(post_image);
+        }
+
+        public void  setUsername(String username){
+            TextView post_username = (TextView) mView.findViewById(R.id.post_username);
+            post_username.setText(username);
         }
     }
 

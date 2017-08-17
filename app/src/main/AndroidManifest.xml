@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.myproj.blogapp"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.myproj.blogapp">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -35,7 +35,8 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SetupActivity"></activity>
+        <activity android:name=".SetupActivity" />
+        <activity android:name=".BlogSingleActivity"></activity>
     </application>
 
 </manifest>
