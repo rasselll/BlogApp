@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
@@ -25,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mEmailField;
     private EditText mPasswordField;
 
-    private Button mRegisterBtn;
+    private ImageButton mRegisterBtn;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -39,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
@@ -51,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         mNameField = (EditText) findViewById(R.id.nameField);
         mEmailField = (EditText) findViewById(R.id.emailField);
         mPasswordField = (EditText) findViewById(R.id.passwordField);
-        mRegisterBtn = (Button) findViewById(R.id.registerButton);
+        mRegisterBtn = (ImageButton) findViewById(R.id.registerButton);
 
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {

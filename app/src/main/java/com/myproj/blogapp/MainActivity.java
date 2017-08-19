@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -39,18 +40,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mBlogList;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-
+    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabaseUsers;
+    //query for single user posts
+    private DatabaseReference mDatabaseCurrentUser;
+    private Query mQueryCurrentUser;
+    private LinearLayoutManager mLayoutManager;
+    private  DatabaseReference mDatabaseLike;
     private boolean mProcessLike = false;
 
 
-
     FloatingActionButton fab;
-    private DatabaseReference mDatabase;
-    private DatabaseReference mDatabaseUsers;
-
-    private LinearLayoutManager mLayoutManager;
-
-    private  DatabaseReference mDatabaseLike;
 
 
 
@@ -85,6 +85,12 @@ public class MainActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
+
+        //query for post of single user
+   /*     String currentUserId = mAuth.getCurrentUser().getUid();
+        mDatabaseCurrentUser = FirebaseDatabase.getInstance().getReference().child("Blog");
+        mQueryCurrentUser = mDatabaseCurrentUser.orderByChild("uid").equalTo(currentUserId);*/
+
         mDatabaseUsers.keepSynced(true);
         mDatabaseLike.keepSynced(true);
         mDatabase.keepSynced(true);
@@ -122,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
                 Blog.class,
                 R.layout.blog_row,
                 BlogViewHolder.class,
+                //query for 1 user
+               // mQueryCurrentUser
                 mDatabase
 
         ) {

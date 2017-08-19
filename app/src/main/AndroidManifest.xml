@@ -33,7 +33,10 @@
             android:name=".timetable"
             android:label="Salah Times"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RegisterActivity"
+
+           />
+
         <activity android:name=".LoginActivity" />
         <activity android:name=".SetupActivity" />
         <activity android:name=".BlogSingleActivity"></activity>
