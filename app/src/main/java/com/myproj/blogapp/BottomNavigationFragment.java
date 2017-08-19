@@ -96,7 +96,7 @@ public class BottomNavigationFragment extends Fragment {
     }
 
     public void onClickButton3(){
-        Intent intent = new Intent(getActivity(),PostActivity.class);
+        Intent intent = new Intent(getActivity(),mainact.class);
         startActivity(intent);
     }
 

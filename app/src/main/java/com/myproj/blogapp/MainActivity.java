@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() == null) {
 
-                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    Intent loginIntent = new Intent(MainActivity.this, mainact.class);
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(loginIntent);
 
@@ -336,7 +336,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_add){
-            startActivity(new Intent(MainActivity.this, timetable.class));
+            startActivity(new Intent(MainActivity.this, mainact.class));
         }
         if(item.getItemId() == R.id.action_logout){
             logout();

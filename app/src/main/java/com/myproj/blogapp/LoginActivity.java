@@ -1,5 +1,6 @@
 package com.myproj.blogapp;
 
+import com.myproj.blogapp.R;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
